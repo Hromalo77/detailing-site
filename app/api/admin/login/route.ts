@@ -6,9 +6,9 @@ export async function POST(request: Request) {
   const password = String(formData.get("password") ?? "");
 
   if (!(await isAdminPassword(password))) {
-    return NextResponse.redirect(new URL("/admin?error=1", request.url));
+    return NextResponse.redirect(new URL("/admin?error=1", request.url), 303);
   }
 
   await createAdminSession();
-  return NextResponse.redirect(new URL("/admin", request.url));
+  return NextResponse.redirect(new URL("/admin", request.url), 303);
 }
