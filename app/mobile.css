@@ -1,0 +1,325 @@
+.mobile-actions {
+    display: none
+}
+
+@media (max-width: 980px) {
+    html {
+        scroll-padding-top: 76px
+    }
+
+    body {
+        overflow-x: hidden
+    }
+
+    .site-header {
+        height: 72px;
+        padding: 0 18px;
+        gap: 12px
+    }
+
+    .site-header nav {
+        display: none
+    }
+
+    .site-header .brand {
+        font-size: 13px;
+        letter-spacing: 1.5px
+    }
+
+    .site-header .brand-mark {
+        width: 36px;
+        height: 36px
+    }
+
+    .site-header .nav-call {
+        margin-left: auto;
+        padding: 12px 15px;
+        min-height: 44px;
+        display: flex;
+        align-items: center
+    }
+
+    .hero {
+        grid-template-columns:1fr;
+        min-height: auto
+    }
+
+    .hero-copy {
+        padding: 72px 24px 54px
+    }
+
+    h1 {
+        font-size: clamp(46px, 13vw, 70px);
+        letter-spacing: -1.8px
+    }
+
+    .hero-lede {
+        font-size: 16px;
+        line-height: 1.65;
+        margin: 25px 0
+    }
+
+    .hero-actions {
+        display: grid;
+        grid-template-columns:1fr 1fr
+    }
+
+    .hero-actions .button {
+        min-height: 54px;
+        padding: 15px 12px;
+        text-align: center
+    }
+
+    .trust-row {
+        display: grid;
+        grid-template-columns:1fr;
+        gap: 12px;
+        margin-top: 28px
+    }
+
+    .hero-art {
+        min-height: 390px
+    }
+
+    .sun {
+        width: 220px;
+        height: 220px;
+        top: 42px;
+        right: 12%
+    }
+
+    .car-line {
+        top: 185px;
+        height: 145px
+    }
+
+    .service-badge {
+        right: 20px;
+        bottom: 24px
+    }
+
+    .service-strip {
+        height: 52px;
+        justify-content: flex-start;
+        gap: 22px;
+        padding: 0 22px;
+        white-space: nowrap
+    }
+
+    .service-strip span:nth-of-type(n+3), .service-strip i:nth-of-type(n+2) {
+        display: none
+    }
+
+    .section {
+        padding: 76px 22px
+    }
+
+    .section-heading {
+        display: block;
+        margin-bottom: 36px
+    }
+
+    .section-heading h2, .process h2, .gallery h2, .coverage h2, .faq h2, .contact h2 {
+        font-size: clamp(42px, 12vw, 58px)
+    }
+
+    .section-heading > p {
+        margin-top: 22px;
+        font-size: 15px
+    }
+
+    .service-grid, .review-grid {
+        grid-template-columns:1fr;
+        gap: 18px
+    }
+
+    .service-card, .service-card.popular {
+        min-height: 0;
+        padding: 30px 25px
+    }
+
+    .service-card.popular {
+        padding-top: 50px;
+        order: -1
+    }
+
+    .service-card > a {
+        min-height: 48px;
+        display: block
+    }
+
+    .process, .gallery, .coverage, .faq, .contact {
+        grid-template-columns:1fr;
+        gap: 48px
+    }
+
+    .steps article {
+        grid-template-columns:38px 1fr;
+        gap: 14px;
+        padding: 22px 0
+    }
+
+    .review-grid blockquote {
+        padding: 27px
+    }
+
+    .review-grid blockquote > p {
+        min-height: 0;
+        font-size: 19px
+    }
+
+    .gallery-placeholders {
+        grid-template-columns:1fr;
+        grid-template-rows:160px 160px 160px;
+        min-height: 0
+    }
+
+    .gallery-placeholders div:first-child {
+        grid-row: auto
+    }
+
+    .gallery-tags {
+        flex-wrap: wrap
+    }
+
+    .towns {
+        grid-template-columns:1fr 1fr
+    }
+
+    .towns span {
+        font-size: 16px;
+        padding: 16px 5px
+    }
+
+    .faq-list summary {
+        font-size: 19px;
+        gap: 20px;
+        align-items: center
+    }
+
+    .faq-list details p {
+        padding-right: 5px
+    }
+
+    .field-row {
+        grid-template-columns:1fr
+    }
+
+    .contact form {
+        padding: 28px 22px
+    }
+
+    .contact input, .contact textarea {
+        font-size: 16px;
+        min-height: 48px
+    }
+
+    .contact button {
+        min-height: 54px
+    }
+
+    body > main > footer {
+        grid-template-columns:1fr;
+        padding: 54px 22px 110px
+    }
+
+    body > main > footer > div {
+        justify-content: flex-start;
+        flex-wrap: wrap
+    }
+
+    .mobile-actions {
+        position: fixed;
+        display: grid;
+        grid-template-columns:1fr 1fr;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        z-index: 30;
+        background: #fff;
+        padding: 7px;
+        border-radius: 12px;
+        box-shadow: 0 8px 35px #061f2766;
+        border: 1px solid #dbe3e0
+    }
+
+    .mobile-actions a {
+        min-height: 54px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 7px 16px;
+        border-radius: 8px
+    }
+
+    .mobile-actions a:first-child {
+        background: #082c35;
+        color: #fff
+    }
+
+    .mobile-actions a:last-child {
+        background: #46d9ca;
+        color: #061f27
+    }
+
+    .mobile-actions b {
+        font-size: 13px
+    }
+
+    .mobile-actions small {
+        font-size: 9px;
+        margin-top: 3px;
+        opacity: .75
+    }
+}
+
+@media (max-width: 430px) {
+    .site-header .brand small {
+        letter-spacing: 2px
+    }
+
+    .site-header .nav-call {
+        font-size: 0
+    }
+
+    .site-header .nav-call:before {
+        content: "Call";
+        font-size: 12px
+    }
+
+    .site-header .nav-call span {
+        font-size: 12px;
+        margin-left: 7px
+    }
+
+    .hero-copy {
+        padding-top: 58px
+    }
+
+    .hero-actions {
+        grid-template-columns:1fr
+    }
+
+    .hero-art {
+        min-height: 330px
+    }
+
+    .car-line {
+        top: 145px
+    }
+
+    .service-badge {
+        transform: scale(.88);
+        transform-origin: bottom right
+    }
+
+    .towns {
+        grid-template-columns:1fr
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto
+    }
+}
