@@ -1,8 +1,8 @@
 # vinext-starter
 
 A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+[vinext](https://github.com/cloudflare/vinext), with Neon Postgres and Drizzle
+support.
 
 ## Prerequisites
 
@@ -23,12 +23,18 @@ Scripts that need writable project-scoped home, npm, XDG, and temporary paths us
 
 - edit site code under `app/`
 - `app/chatgpt-auth.ts` provides optional dispatch-owned ChatGPT sign-in helpers
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
+- `.openai/hosting.json` declares optional Sites R2 bindings
 - `vite.config.ts` simulates declared bindings for local development
-- `db/index.ts` reads the D1 binding from the Cloudflare Worker environment
+- `db/index.ts` reads `DATABASE_URL` and connects to Neon Postgres
 - `db/schema.ts` starts intentionally empty
 - `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+- `drizzle.config.ts` supports local PostgreSQL migration generation when needed
+
+## Database
+
+Set `DATABASE_URL` in `.env` for local commands and in the production runtime
+environment for deployed database access. Keep real connection strings out of
+Git; `.env.example` documents the required variable name.
 
 ## Workspace Auth Headers
 
@@ -104,4 +110,4 @@ The timeout defaults can be overridden for a controlled canary with `SITES_INSTA
 ## Learn More
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+- [Drizzle PostgreSQL Guide](https://orm.drizzle.team/docs/get-started/postgresql-new)
