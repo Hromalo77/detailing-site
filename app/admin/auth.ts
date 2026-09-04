@@ -1,10 +1,11 @@
 import { cookies } from "next/headers";
+import { env } from "cloudflare:workers";
 
 const COOKIE_NAME = "admin_session";
 const TOKEN_BODY = "admin";
 
 function getAdminPassword() {
-  return process.env.ADMIN_PASSWORD;
+  return env.ADMIN_PASSWORD ?? process.env.ADMIN_PASSWORD;
 }
 
 async function sign(value: string) {
