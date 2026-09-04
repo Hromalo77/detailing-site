@@ -934,3 +934,265 @@ h1 em, h2 em {
     color: #829093;
     margin-top: 5px
 }
+
+.admin-shell {
+    min-height: 100vh;
+    background: #eef2f0;
+    color: #102f35;
+    padding: 34px clamp(18px, 4vw, 56px) 100px
+}
+
+.login-shell {
+    display: grid;
+    place-items: center
+}
+
+.admin-login {
+    width: min(460px, 100%);
+    background: #fff;
+    border: 1px solid #d9dfdc;
+    padding: 34px;
+    box-shadow: 0 18px 45px rgba(8, 44, 53, .11)
+}
+
+.admin-kicker {
+    margin: 0 0 7px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 10px;
+    font-weight: 900;
+    color: #149a91
+}
+
+.admin-shell h1 {
+    font: 42px/1 Georgia, serif;
+    letter-spacing: 0;
+    margin: 0
+}
+
+.admin-login > p:not(.admin-kicker) {
+    color: #63777a;
+    line-height: 1.6
+}
+
+.admin-login form {
+    margin-top: 26px
+}
+
+.admin-login label, .admin-field span {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 9px;
+    font-weight: 900;
+    color: #4d6368
+}
+
+.admin-login input, .admin-field input, .admin-field textarea {
+    width: 100%;
+    border: 1px solid #cbd4d1;
+    background: #fff;
+    padding: 13px 12px;
+    margin-top: 8px;
+    outline: none
+}
+
+.admin-field textarea {
+    min-height: 105px;
+    resize: vertical;
+    line-height: 1.5
+}
+
+.admin-login button, .admin-savebar button, .admin-topbar button, .admin-add, .admin-repeat-head button {
+    border: 0;
+    background: #082c35;
+    color: #fff;
+    padding: 13px 16px;
+    font-weight: 800;
+    cursor: pointer
+}
+
+.admin-login button {
+    width: 100%;
+    margin-top: 16px
+}
+
+.admin-error, .admin-status.error {
+    color: #b42318
+}
+
+.admin-topbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 28px
+}
+
+.admin-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+.admin-topbar-actions > a {
+    border: 1px solid #cbd4d1;
+    background: #fff;
+    padding: 12px 15px;
+    font-size: 13px;
+    font-weight: 800
+}
+
+.admin-layout {
+    display: grid;
+    grid-template-columns:190px minmax(0, 1fr);
+    gap: 22px
+}
+
+.admin-sidebar {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    display: grid;
+    gap: 2px;
+    background: #fff;
+    border: 1px solid #d9dfdc;
+    padding: 8px
+}
+
+.admin-sidebar a {
+    padding: 11px 12px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #496166
+}
+
+.admin-sidebar a:hover {
+    background: #eef7f5;
+    color: #0f7f77
+}
+
+.admin-content {
+    display: grid;
+    gap: 18px
+}
+
+.admin-panel {
+    background: #fff;
+    border: 1px solid #d9dfdc;
+    padding: 24px
+}
+
+.admin-panel h2 {
+    font: 28px Georgia, serif;
+    letter-spacing: 0;
+    margin-bottom: 20px
+}
+
+.admin-fields {
+    display: grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap: 15px
+}
+
+.admin-field.wide, .admin-repeater.wide {
+    grid-column: 1/-1
+}
+
+.admin-check {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #354d52
+}
+
+.admin-repeat-item {
+    border: 1px solid #dde5e2;
+    padding: 16px;
+    margin-bottom: 12px
+}
+
+.admin-repeat-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 14px
+}
+
+.admin-repeat-head h3 {
+    margin: 0;
+    font: 19px Georgia, serif
+}
+
+.admin-repeat-head button {
+    background: #eef2f0;
+    color: #102f35;
+    padding: 9px 12px
+}
+
+.admin-add {
+    background: #46d9ca;
+    color: #061f27
+}
+
+.admin-json summary {
+    cursor: pointer;
+    font-weight: 800;
+    margin-top: 12px
+}
+
+.admin-json pre {
+    overflow: auto;
+    background: #061f27;
+    color: #dff7f3;
+    padding: 16px;
+    font-size: 12px
+}
+
+.admin-savebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+    background: rgba(255, 255, 255, .95);
+    border-top: 1px solid #d9dfdc;
+    padding: 14px clamp(18px, 4vw, 56px)
+}
+
+.admin-status {
+    font-size: 13px;
+    font-weight: 800;
+    color: #63777a
+}
+
+.admin-status.saved {
+    color: #0f7f77
+}
+
+@media (max-width: 820px) {
+    .admin-topbar, .admin-topbar-actions {
+        align-items: stretch;
+        flex-direction: column
+    }
+
+    .admin-layout {
+        grid-template-columns:1fr
+    }
+
+    .admin-sidebar {
+        position: static;
+        grid-template-columns:repeat(2, 1fr)
+    }
+
+    .admin-fields {
+        grid-template-columns:1fr
+    }
+}
