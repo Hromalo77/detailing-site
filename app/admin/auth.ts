@@ -5,7 +5,9 @@ const COOKIE_NAME = "admin_session";
 const TOKEN_BODY = "admin";
 
 function getAdminPassword() {
-  return env.ADMIN_PASSWORD ?? process.env.ADMIN_PASSWORD;
+  const password = env.ADMIN_PASSWORD ?? process.env.ADMIN_PASSWORD;
+
+  return password?.trim();
 }
 
 async function sign(value: string) {
@@ -36,7 +38,11 @@ async function sign(value: string) {
 export async function isAdminPassword(password: string) {
   const adminPassword = getAdminPassword();
 
-  return Boolean(adminPassword) && password === adminPassword;
+  return Boolean(adminPassword) && password.trim() === adminPassword;
+}
+
+export function hasAdminPassword() {
+  return Boolean(getAdminPassword());
 }
 
 export async function createAdminSession() {

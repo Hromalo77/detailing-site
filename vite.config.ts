@@ -2,6 +2,9 @@ import vinext from "vinext";
 import { defineConfig } from "vite";
 import hostingConfig from "./.openai/hosting.json";
 import { sites } from "./build/sites-vite-plugin";
+import { config as loadEnv } from "dotenv";
+
+loadEnv();
 
 const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
   "00000000-0000-4000-8000-000000000000";
@@ -11,9 +14,17 @@ const { d1, r2 } = hostingConfig;
 // macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 
+const localVars = Object.fromEntries(
+  Object.entries({
+    DATABASE_URL: process.env.DATABASE_URL,
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+  }).filter((entry): entry is [string, string] => typeof entry[1] === "string")
+);
+
 const localBindingConfig = {
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
+  vars: localVars,
   d1_databases: d1
     ? [
         {

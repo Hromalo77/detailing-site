@@ -1,5 +1,5 @@
 import { getSiteContent } from "@/db/content";
-import { isAdminAuthenticated } from "./auth";
+import { hasAdminPassword, isAdminAuthenticated } from "./auth";
 import AdminEditor from "./admin-editor";
 
 export const dynamic = "force-dynamic";
@@ -11,6 +11,12 @@ export default async function AdminPage({
 }) {
   const authenticated = await isAdminAuthenticated();
   const params = await searchParams;
+  const authError =
+    params?.error === "config"
+      ? "ADMIN_PASSWORD is not configured in the runtime environment."
+      : params?.error
+        ? "Incorrect password."
+        : "";
 
   if (!authenticated) {
     return (
@@ -18,13 +24,17 @@ export default async function AdminPage({
         <section className="admin-login">
           <p className="admin-kicker">Cape Shine</p>
           <h1>Admin dashboard</h1>
-          <p>Edit access is protected by the `ADMIN_PASSWORD` environment variable.</p>
           <form action="/api/admin/login" method="post">
             <label>
               Password
               <input name="password" type="password" required autoFocus />
             </label>
-            {params?.error && <p className="admin-error">Incorrect password.</p>}
+            {authError && <p className="admin-error">{authError}</p>}
+            {!hasAdminPassword() && !authError && (
+              <p className="admin-error">
+                ADMIN_PASSWORD is not configured in the runtime environment.
+              </p>
+            )}
             <button type="submit">Sign in</button>
           </form>
         </section>
