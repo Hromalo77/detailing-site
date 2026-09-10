@@ -2,6 +2,7 @@
 
 import { FormEvent, ReactNode, useState } from "react";
 import type { SiteContent } from "./site-content";
+import ServiceCard from "./service-card";
 
 const sectionIds: Record<string, string> = {
   Home: "home",
@@ -13,6 +14,7 @@ const sectionIds: Record<string, string> = {
 
 export default function HomeClient({ content }: { content: SiteContent }) {
   const [sent, setSent] = useState(false);
+  const [requestedService, setRequestedService] = useState("");
   const phoneHref = `tel:${content.contact.phone}`;
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
@@ -20,7 +22,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
     const d = new FormData(e.currentTarget);
     const subject = encodeURIComponent("Mobile detailing request");
     const body = encodeURIComponent(
-      `Name: ${d.get("name")}\nPhone: ${d.get("phone")}\nEmail: ${d.get("email")}\n\nVehicle / question:\n${d.get("message")}`
+      `Name: ${d.get("name")}\nPhone: ${d.get("phone")}\nEmail: ${d.get("email")}\n\n${requestedService ? `${requestedService}\n\n` : ""}Vehicle / question:\n${d.get("message")}`
     );
     setSent(true);
     window.location.href = `mailto:${content.contact.email}?subject=${subject}&body=${body}`;
@@ -109,34 +111,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           text={content.servicesSection.text}
         />
         <div className="service-grid">
-          {content.services.map((service, i) => (
-            <article
-              className={`service-card ${service.popular ? "popular" : ""}`}
-              key={`${service.name}-${i}`}
-            >
-              {service.popular && (
-                <div className="popular-label">Most popular</div>
-              )}
-              <p className="card-number">{String(i + 1).padStart(2, "0")}</p>
-              <h3>{service.name}</h3>
-              <p>{service.text}</p>
-              <ul>
-                {service.items.map((item) => (
-                  <li key={item}>
-                    <span>✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div className="price">
-                <small>STARTING AT</small>
-                <b>{service.price}</b>
-              </div>
-              <a href="#contact">
-                Request this service <span>-&gt;</span>
-              </a>
-            </article>
-          ))}
+          {content.services.map((service, i) => (<ServiceCard key={`${service.name}-${i}`} service={service} index={i} onRequest={setRequestedService} />))}
         </div>
       </section>
 
@@ -291,6 +266,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           </a>
         </div>
         <form onSubmit={submit}>
+          {requestedService && <p className="request-summary" role="status">{requestedService}</p>}
           <div className="field-row">
             <label>
               Your name
@@ -401,3 +377,5 @@ function Heading({
     </div>
   );
 }
+
+

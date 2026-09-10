@@ -2,6 +2,7 @@ import { eq, sql } from "drizzle-orm";
 import { getDb } from ".";
 import { defaultSiteContent, type SiteContent } from "@/app/site-content";
 import { siteContent } from "./schema";
+import { retryDatabaseRead } from "./retry";
 
 const CONTENT_KEY = "default";
 
@@ -31,14 +32,16 @@ async function ensureSiteContentTable() {
 }
 
 export async function getSiteContent(): Promise<SiteContent> {
-  const db = await ensureSiteContentTable();
-  const [row] = await db
-    .select({ value: siteContent.value })
-    .from(siteContent)
-    .where(eq(siteContent.key, CONTENT_KEY))
-    .limit(1);
+  return retryDatabaseRead(async () => {
+    const db = await ensureSiteContentTable();
+    const [row] = await db
+      .select({ value: siteContent.value })
+      .from(siteContent)
+      .where(eq(siteContent.key, CONTENT_KEY))
+      .limit(1);
 
-  return mergeSiteContent(row?.value);
+    return mergeSiteContent(row?.value);
+  });
 }
 
 export async function saveSiteContent(value: SiteContent) {

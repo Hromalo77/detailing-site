@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { Faq, GalleryItem, Review, Service, SiteContent, Step } from "../site-content";
+import { validateServiceAddOns } from "../site-content";
 
 type Status = "idle" | "saving" | "saved" | "error";
 
@@ -21,26 +22,40 @@ export default function AdminEditor({
   );
 
   async function save() {
+    const validationError = validateServiceAddOns(content.services);
+    if (validationError) {
+      setStatus("error");
+      setMessage(validationError);
+      return;
+    }
     setStatus("saving");
     setMessage("");
 
-    const response = await fetch("/api/admin/content", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(content),
-    });
+    try {
+      const response = await fetch("/api/admin/content", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(content),
+      });
 
-    if (!response.ok) {
+      if (!response.ok) {
+        const result = await response.json().catch(() => null);
+        setStatus("error");
+        setMessage(result?.error || "Could not save changes. Please try again.");
+        return;
+      }
+
+      setStatus("saved");
+      setMessage("Changes saved.");
+    } catch {
       setStatus("error");
-      setMessage("Could not save changes.");
-      return;
+      setMessage("Could not save changes. Please try again.");
     }
-
-    setStatus("saved");
-    setMessage("Changes saved.");
   }
 
   function patch<T extends keyof SiteContent>(key: T, value: SiteContent[T]) {
+    setStatus("idle");
+    setMessage("Unsaved changes");
     setContent((current) => ({ ...current, [key]: value }));
   }
 
@@ -436,7 +451,7 @@ export default function AdminEditor({
       </div>
 
       <div className="admin-savebar">
-        <span className={`admin-status ${status}`}>{message || "Ready"}</span>
+        <span role="status" className={`admin-status ${status}`}>{message || "Ready"}</span>
         <button type="button" onClick={save} disabled={status === "saving"}>
           {status === "saving" ? "Saving..." : "Save changes"}
         </button>
@@ -585,6 +600,25 @@ function ServiceList({
           <Field label="Price" value={service.price} onChange={(price) => update({ ...service, price })} />
           <Area label="Description" value={service.text} onChange={(text) => update({ ...service, text })} />
           <ListField label="Included items" value={service.items} onChange={(items) => update({ ...service, items })} />
+          <div className="wide">
+            <h4>Optional add-ons</h4>
+            <p>Create extras for this plan, such as pet hair removal. Enter prices in dollars.</p>
+            <Repeater
+              label="Add-on"
+              items={service.addOns ?? []}
+              empty={{ name: "", price: "" }}
+              onChange={(addOns) => update({ ...service, addOns })}
+              render={(addOn, updateAddOn) => (
+                <>
+                  <Field label="Add-on name" value={addOn.name} onChange={(name) => updateAddOn({ ...addOn, name })} />
+                  <label className="admin-field">
+                    <span>Add-on price ($)</span>
+                    <input type="number" min="0" step="0.01" inputMode="decimal" value={addOn.price} onChange={(event) => updateAddOn({ ...addOn, price: event.target.value })} />
+                  </label>
+                </>
+              )}
+            />
+          </div>
           <label className="admin-check">
             <input
               type="checkbox"

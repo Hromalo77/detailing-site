@@ -1,9 +1,33 @@
+export type ServiceAddOn = {
+  name: string;
+  price: string;
+};
+
+export function validateServiceAddOns(services: unknown): string | null {
+  if (!Array.isArray(services)) return "Services must be a list.";
+  for (const service of services) {
+    if (!service || typeof service !== "object") return "Invalid service.";
+    if (service.addOns === undefined) continue;
+    if (!Array.isArray(service.addOns)) return "Add-ons must be a list.";
+    for (const addOn of service.addOns) {
+      if (!addOn || typeof addOn.name !== "string" || !addOn.name.trim()) {
+        return "Enter a name for every add-on.";
+      }
+      if (typeof addOn.price !== "string" || !/^\d+(\.\d{1,2})?$/.test(addOn.price) || !Number.isFinite(Number(addOn.price))) {
+        return "Enter a valid add-on price in dollars (for example, 25 or 25.50).";
+      }
+    }
+  }
+  return null;
+}
+
 export type Service = {
   name: string;
   price: string;
   text: string;
   items: string[];
   popular?: boolean;
+  addOns?: ServiceAddOn[];
 };
 
 export type Step = {

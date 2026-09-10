@@ -809,7 +809,61 @@ h1 em, h2 em {
     margin-right: 10px
 }
 
-.price {
+  .service-addons {
+      min-width: 0;
+      border: 0;
+      border-top: 1px solid var(--line);
+      padding: 16px 0 8px;
+      margin: 8px 0 24px;
+      font-size: 14px;
+  }
+
+  .service-addons legend { padding: 0 12px 0 0; font-weight: 700; letter-spacing: .02em; }
+  .service-addon {
+      display: grid;
+      grid-template-columns: 20px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      min-height: 58px;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #dce7e5;
+      border-radius: 10px;
+      background: #f7faf9;
+      cursor: pointer;
+      transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
+  }
+  .service-addon input { width: 18px; height: 18px; margin: 0; accent-color: #11766b; cursor: inherit; }
+  .service-addon:has(input:checked) { border-color: #168879; background: #e8f6f1; box-shadow: inset 3px 0 #168879; }
+  .service-addon:has(input:focus-visible) { outline: 2px solid #168879; outline-offset: 3px; }
+  .service-addon:has(input:disabled) { opacity: .55; cursor: not-allowed; }
+  .service-addon span { overflow-wrap: anywhere; line-height: 1.45; font-weight: 500; }
+  .service-addon strong { white-space: nowrap; font-size: 14px; font-variant-numeric: tabular-nums; color: #116b60; }
+  .popular .service-addons { border-color: #31525a; }
+  .popular .service-addon { background: #183f48; border-color: #365b62; }
+  .popular .service-addon strong { color: #9be4d2; }
+  .popular .service-addon input { accent-color: #85dfc8; }
+  .popular .service-addon:has(input:checked) { background: #20554f; border-color: #85dfc8; box-shadow: inset 3px 0 #85dfc8; }
+  .popular .service-addon:has(input:focus-visible) { outline-color: #85dfc8; }
+  .service-card:has(.service-addons) .price { padding: 18px 0 4px; border-top: 1px solid var(--line); }
+  .service-card:has(.service-addons) .price small { font-size: 12px; letter-spacing: .08em; line-height: 1.5; color: #526c6b; }
+  .service-card:has(.service-addons) .price b { font-size: clamp(32px, 3vw, 42px); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .popular:has(.service-addons) .price { border-color: #31525a; }
+  .popular:has(.service-addons) .price small { color: #b5cecd; }
+  .request-summary { white-space: pre-line; line-height: 1.7; padding: 18px 20px; border: 1px solid #85bdb2; border-left: 4px solid #85dfc8; border-radius: 8px; background: rgba(133, 223, 200, .08); }
+  @media (hover: hover) {
+      .service-addon:hover { border-color: #168879; background: #edf6f2; }
+      .popular .service-addon:hover { border-color: #85dfc8; background: #20554f; }
+  }
+  @media (max-width: 380px) {
+      .service-addon { grid-template-columns: 20px minmax(0, 1fr); }
+      .service-addon strong { grid-column: 2; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+      .service-addon { transition: none; }
+  }
+
+  .price {
     margin-top: auto
 }
 
