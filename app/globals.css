@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+:root {
+  --brand-dark: #092F38;
+  --brand-light: #46D9CA;
+  --brand-bg: #F8F7F2;
+  --text-dark: #102F35;
+  --text-muted: #63777A;
+  --border-color: #D9DFDC;
+  
+  --color-primary: #0A3D46;
+  --color-secondary: #00A896;
+  --color-accent: #FFB703;
+  --color-bg: #F8F9FA;
+  --color-text: #212529;
+  --color-text-light: #63777a;
+}
+
 .gallery {
     background: #092f38;
     color: #fff;
@@ -159,7 +175,8 @@
 .contact form {
     background: #fff;
     padding: 35px;
-    box-shadow: 0 20px 50px #082c3524
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
 }
 
 .field-row {
@@ -181,24 +198,37 @@
     display: block;
     width: 100%;
     border: 0;
-    border-bottom: 1px solid #bccac7;
+    border-bottom: 2px solid var(--border-color);
     padding: 13px 0;
     background: transparent;
     outline: none;
     text-transform: none;
     letter-spacing: 0;
-    font-size: 14px
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.contact input:focus, .contact textarea:focus {
+    border-bottom-color: var(--brand-light);
 }
 
 .contact button {
     border: 0;
-    background: #082c35;
+    background: var(--brand-dark);
     color: #fff;
     padding: 16px 20px;
     width: 100%;
-    text-align: left;
+    text-align: center;
     font-weight: 800;
-    font-size: 12px
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.contact button:hover {
+    background: var(--brand-light);
+    color: var(--brand-dark);
 }
 
 .contact button span {
@@ -435,7 +465,7 @@ button, input, textarea {
 
 .hero {
     min-height: 650px;
-    background: var(--navy);
+    background: var(--brand-dark);
     color: #fff;
     display: grid;
     grid-template-columns:1.08fr .92fr;
@@ -454,7 +484,7 @@ button, input, textarea {
     letter-spacing: 2.5px;
     font-size: 11px;
     font-weight: 800;
-    color: #198d84;
+    color: var(--brand-light);
     margin: 0 0 24px
 }
 
@@ -471,9 +501,9 @@ button, input, textarea {
 h1, h2 {
     font-family: Georgia, 'Times New Roman', serif;
     font-weight: 400;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
     margin: 0;
-    line-height: .98
+    line-height: 1.1
 }
 
 h1 {
@@ -482,14 +512,14 @@ h1 {
 }
 
 h1 em, h2 em {
-    color: var(--aqua);
+    color: var(--brand-light);
     font-weight: 400
 }
 
 .hero-lede {
-    font-size: 17px;
-    line-height: 1.75;
-    color: #c9d7d7;
+    font-size: 19px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
     max-width: 650px;
     margin: 30px 0
 }
@@ -511,7 +541,7 @@ h1 em, h2 em {
 }
 
 .button.primary {
-    background: var(--aqua);
+    background: var(--brand-light);
     color: var(--deep)
 }
 
@@ -533,11 +563,11 @@ h1 em, h2 em {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #aec1c1
+    color: var(--text-muted)
 }
 
 .trust-row b {
-    color: var(--aqua);
+    color: var(--brand-light);
     margin-right: 6px
 }
 
@@ -1269,4 +1299,32 @@ footer.legal-footer { display: flex; justify-content: center; flex-wrap: wrap; g
 .contact-disclosure a, .quote-disclosure a { text-decoration: underline; text-underline-offset: 3px; }
 .service-card > p.quote-disclosure { font-size: 14px; line-height: 1.6; margin: 0 0 18px; }
 @media (max-width: 600px) { .legal-document { padding: 24px; margin: 0 12px; } }
+
+/* Conversion and accessibility polish */
+:root { --aqua-dark: #087d77; --paper: #fbfaf6; }
+body { background: var(--paper); font-size: 16px; line-height: 1.5; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 3px solid var(--aqua-dark); outline-offset: 3px; }
+.skip-link { border-radius: 6px; }
+.hero-copy { max-width: 760px; }
+.hero-lede { font-size: 18px; line-height: 1.65; }
+.button, .nav-call, .contact button { min-height: 50px; }
+.button.primary, .nav-call, .contact button { background: var(--navy); }
+.service-card { box-shadow: 0 8px 24px #082c3508; }
+.service-card.popular { border-color: var(--aqua-dark); box-shadow: 0 16px 38px #082c3512; }
+.contact input, .contact textarea { min-height: 48px; font-size: 16px; }
+.contact label { font-size: 12px; letter-spacing: 0; text-transform: none; }
+.contact button { cursor: pointer; font-size: 13px; }
+.contact button:disabled { cursor: wait; opacity: .65; }
+.contact-disclosure { font-size: 12px; line-height: 1.6; }
+.service-card > p.quote-disclosure { font-size: 12px; line-height: 1.6; }
+main > footer > div a:hover { color: var(--aqua); }
+@media (max-width: 600px) {
+  .hero-actions { grid-template-columns: 1fr; }
+  .hero-actions .button { width: 100%; min-height: 54px; }
+  .contact form { padding: 28px 21px; }
+  .mobile-actions a { min-height: 54px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
 

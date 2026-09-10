@@ -333,6 +333,6 @@ export const defaultSiteContent: SiteContent = {
   footer: {
     text: "Mobile auto detailing across Cape Cod & Southeast Massachusetts.",
     copyright:
-      "(c) 2026 Cape Shine Mobile Detailing. Template content - update business details before launch.",
+      "(c) 2026 Cape Shine Mobile Detailing. All rights reserved.",
   },
 };

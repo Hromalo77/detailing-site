@@ -23,6 +23,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
   const requested = requestedIndex === null ? null : content.services[requestedIndex];
   const requestedService = requested ? serviceSummary(requested, selections[requestedIndex!] ?? []) : "";
   const phoneHref = `tel:${content.contact.phone}`;
+  const footerCopyright = content.footer.copyright.replace(/\. Template content.*$/i, ". All rights reserved.");
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,8 +58,8 @@ export default function HomeClient({ content }: { content: SiteContent }) {
             </a>
           ))}
         </nav>
-        <a className="nav-call" href={phoneHref}>
-          Call now <span>-&gt;</span>
+        <a className="nav-call" href={phoneHref} aria-label={`Call Cape Shine at ${content.contact.phoneDisplay}`}>
+          Call now <span aria-hidden="true">-&gt;</span>
         </a>
       </header>
 
@@ -79,7 +80,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
               {content.hero.primaryCta}
             </a>
             <a className="button secondary" href="#contact">
-              {content.hero.secondaryCta} <span>-&gt;</span>
+              {content.hero.secondaryCta} <span aria-hidden="true">-&gt;</span>
             </a>
           </div>
           <div className="trust-row">
@@ -287,29 +288,30 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           <div className="contact-trap" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
           {requestedService && <p className="request-summary" role="status">{requestedService}</p>}
           <div className="field-row">
-            <label>
+            <label htmlFor="name">
               Your name
-              <input required name="name" maxLength={120} placeholder="John Smith" />
+              <input id="name" required name="name" maxLength={120} autoComplete="name" placeholder="John Smith" />
             </label>
-            <label>
+            <label htmlFor="phone">
               Phone number
-              <input required name="phone" maxLength={60} type="tel" placeholder="(508) 555-0123" />
+              <input id="phone" required name="phone" maxLength={60} type="tel" autoComplete="tel" placeholder="(508) 555-0123" />
             </label>
           </div>
-          <label>
+          <label htmlFor="email">
             Email address
-            <input required name="email" maxLength={254} type="email" placeholder="john@example.com" />
+            <input id="email" required name="email" maxLength={254} type="email" autoComplete="email" placeholder="john@example.com" />
           </label>
-          <label>
+          <label htmlFor="message">
             Vehicle & what you need
             <textarea
+              id="message"
               name="message"
               maxLength={4000}
               rows={4}
               placeholder="Tell us your vehicle, condition, location, or questions..."
             />
           </label>
-          <p className="contact-disclosure">We’ll use your details to respond to this request. This does not subscribe you to marketing. Read our <a href="/privacy">privacy notice</a> and <a href="/service-information">quote and service information</a>. Please don’t include payment-card or other sensitive details.</p>
+          <p className="contact-disclosure">We’ll use your details to respond to this request. This does not subscribe you to marketing. We usually reply with a few questions and a quote recommendation. Read our <a href="/privacy">privacy notice</a> and <a href="/service-information">service information</a>.</p>
           <button disabled={sending || sent}>
             {sending ? "Sending…" : sent ? "Request submitted" : content.contactSection.submitLabel} <span>-&gt;</span>
           </button>
@@ -329,7 +331,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           <a href="/privacy">Privacy notice</a>
           <a href="/service-information">Service information</a>
         </div>
-        <small>{content.footer.copyright}</small>
+        <small>{footerCopyright}</small>
       </footer>
 
       <div className="mobile-actions" aria-label="Quick actions">
