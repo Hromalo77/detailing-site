@@ -1,8 +1,9 @@
 "use client";
 
-import { FormEvent, ReactNode, useState } from "react";
+import { FormEvent, ReactNode, useRef, useState } from "react";
 import type { SiteContent } from "./site-content";
 import ServiceCard from "./service-card";
+import { serviceSummary } from "./contact-request";
 
 const sectionIds: Record<string, string> = {
   Home: "home",
@@ -14,22 +15,39 @@ const sectionIds: Record<string, string> = {
 
 export default function HomeClient({ content }: { content: SiteContent }) {
   const [sent, setSent] = useState(false);
-  const [requestedService, setRequestedService] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
+  const submitting = useRef(false);
+  const [requestedIndex, setRequestedIndex] = useState<number | null>(null);
+  const [selections, setSelections] = useState<Record<number, number[]>>({});
+  const requested = requestedIndex === null ? null : content.services[requestedIndex];
+  const requestedService = requested ? serviceSummary(requested, selections[requestedIndex!] ?? []) : "";
   const phoneHref = `tel:${content.contact.phone}`;
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (submitting.current) return;
+    submitting.current = true;
+    setSending(true);
+    setSent(false);
+    setSendError("");
     const d = new FormData(e.currentTarget);
-    const subject = encodeURIComponent("Mobile detailing request");
-    const body = encodeURIComponent(
-      `Name: ${d.get("name")}\nPhone: ${d.get("phone")}\nEmail: ${d.get("email")}\n\n${requestedService ? `${requestedService}\n\n` : ""}Vehicle / question:\n${d.get("message")}`
-    );
-    setSent(true);
-    window.location.href = `mailto:${content.contact.email}?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: d.get("name"), phone: d.get("phone"), email: d.get("email"), message: d.get("message"), website: d.get("website"),
+          selection: requested ? { serviceIndex: requestedIndex, serviceName: requested.name, addOns: (selections[requestedIndex!] ?? []).map((index) => ({ index, name: requested.addOns![index].name })) } : null }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Could not submit your request. Please call us.");
+      setSent(true);
+    } catch (error) {
+      setSendError(error instanceof Error ? error.message : "Could not confirm your request. Please call us.");
+    } finally { submitting.current = false; setSending(false); }
   };
 
   return (
-    <main>
+    <main id="main-content">
       <header className="site-header">
         <Brand content={content} />
         <nav>
@@ -111,7 +129,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           text={content.servicesSection.text}
         />
         <div className="service-grid">
-          {content.services.map((service, i) => (<ServiceCard key={`${service.name}-${i}`} service={service} index={i} onRequest={setRequestedService} />))}
+          {content.services.map((service, i) => (<ServiceCard key={`${service.name}-${i}`} service={service} index={i} selected={selections[i] ?? []} onSelectionChange={(selected) => { setSelections((current) => ({ ...current, [i]: selected })); setSent(false); }} onRequest={() => { setRequestedIndex(i); setSent(false); }} />))}
         </div>
       </section>
 
@@ -266,33 +284,37 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           </a>
         </div>
         <form onSubmit={submit}>
+          <div className="contact-trap" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
           {requestedService && <p className="request-summary" role="status">{requestedService}</p>}
           <div className="field-row">
             <label>
               Your name
-              <input required name="name" placeholder="John Smith" />
+              <input required name="name" maxLength={120} placeholder="John Smith" />
             </label>
             <label>
               Phone number
-              <input required name="phone" type="tel" placeholder="(508) 555-0123" />
+              <input required name="phone" maxLength={60} type="tel" placeholder="(508) 555-0123" />
             </label>
           </div>
           <label>
             Email address
-            <input required name="email" type="email" placeholder="john@example.com" />
+            <input required name="email" maxLength={254} type="email" placeholder="john@example.com" />
           </label>
           <label>
             Vehicle & what you need
             <textarea
               name="message"
+              maxLength={4000}
               rows={4}
               placeholder="Tell us your vehicle, condition, location, or questions..."
             />
           </label>
-          <button>
-            {content.contactSection.submitLabel} <span>-&gt;</span>
+          <p className="contact-disclosure">We’ll use your details to respond to this request. This does not subscribe you to marketing. Read our <a href="/privacy">privacy notice</a> and <a href="/service-information">quote and service information</a>. Please don’t include payment-card or other sensitive details.</p>
+          <button disabled={sending || sent}>
+            {sending ? "Sending…" : sent ? "Request submitted" : content.contactSection.submitLabel} <span>-&gt;</span>
           </button>
-          {sent && <p className="form-note">{content.contactSection.sentMessage}</p>}
+          {sent && <p className="form-note" role="status">Your request was submitted. We’ll be in touch soon.</p>}
+          {sendError && <p className="form-note" role="alert">{sendError} <a href={phoneHref}>Call {content.contact.phoneDisplay}</a></p>}
         </form>
       </section>
 
@@ -304,6 +326,8 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           <a href="#gallery">Gallery</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
+          <a href="/privacy">Privacy notice</a>
+          <a href="/service-information">Service information</a>
         </div>
         <small>{content.footer.copyright}</small>
       </footer>

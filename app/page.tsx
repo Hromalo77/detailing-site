@@ -1,10 +1,11 @@
-import { getSiteContent } from "@/db/content";
+import { getPublicSiteContent } from "@/db/public-content";
 import HomeClient from "./home-client";
-
-export const dynamic = "force-dynamic";
+import { connection } from "next/server";
 
 export default async function Home() {
-  const content = await getSiteContent();
+  // Render at request time without disabling the explicit public content cache.
+  await connection();
+  const content = await getPublicSiteContent();
 
   return <HomeClient content={content} />;
 }

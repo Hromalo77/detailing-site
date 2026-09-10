@@ -32,6 +32,17 @@ Scripts that need writable project-scoped home, npm, XDG, and temporary paths us
 
 ## Database
 
+Run `npm run db:setup` once for a new database before starting the app. This
+creates the content table from the checked-in initial migration and is safe to
+run against an existing database. Normal page reads and admin saves never run DDL.
+
+The homepage uses the Next.js Data Cache with timed revalidation disabled.
+Successful admin saves expire its cache tag immediately, so the next homepage
+request loads fresh content. Admin reads and contact price validation bypass
+the cache. Hosting cache eviction or a cleared cache can still trigger a fresh read.
+Self-hosted replicas need a shared Next.js cache handler for cross-instance
+invalidation; already-open browser pages update when reloaded.
+
 Set `DATABASE_URL` in `.env` for local commands and in the production runtime
 environment for deployed database access. Keep real connection strings out of
 Git; `.env.example` documents the required variable name.

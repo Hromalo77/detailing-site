@@ -2,6 +2,8 @@ import { isAdminAuthenticated } from "@/app/admin/auth";
 import type { SiteContent } from "@/app/site-content";
 import { validateServiceAddOns } from "@/app/site-content";
 import { saveSiteContent } from "@/db/content";
+import { revalidateTag } from "next/cache";
+import { PUBLIC_CONTENT_TAG } from "@/db/public-content";
 
 export async function POST(request: Request) {
   if (!(await isAdminAuthenticated())) {
@@ -18,6 +20,7 @@ export async function POST(request: Request) {
   if (error) return Response.json({ error }, { status: 400 });
   try {
     await saveSiteContent(content);
+    revalidateTag(PUBLIC_CONTENT_TAG, { expire: 0 });
   } catch {
     return Response.json(
       { error: "Could not confirm the save. Your edits are still here; please try again." },

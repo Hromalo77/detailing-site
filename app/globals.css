@@ -1250,3 +1250,23 @@ h1 em, h2 em {
         grid-template-columns:1fr
     }
 }
+.contact-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 1000; transform: translateY(-160%); padding: 12px 18px; background: #fff; color: #123b42; border: 2px solid #11766b; border-radius: 6px; }
+.skip-link:focus { transform: translateY(0); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 3px solid #168879; outline-offset: 4px; }
+.legal-shell { min-height: 100vh; background: #f7faf8; color: #153c43; }
+.legal-header { max-width: 850px; margin: auto; padding: 28px 24px; }
+.legal-document { max-width: 850px; margin: 0 auto; padding: 28px 40px 56px; background: white; border: 1px solid #dce7e5; border-radius: 14px; }
+.legal-document h1 { font: clamp(32px, 6vw, 48px)/1.15 Georgia, serif; letter-spacing: -.02em; margin: 16px 0; }
+.legal-document h2 { font-size: 22px; font-weight: 700; line-height: 1.4; margin: 32px 0 10px; }
+.legal-document p { font-size: 16px; line-height: 1.8; overflow-wrap: anywhere; }
+.legal-document a, .legal-header a, .legal-footer a { color: #116b60; text-decoration: underline; text-underline-offset: 3px; }
+.legal-eyebrow { color: #116b60; font-weight: 700; }
+.legal-date { color: #526c6b; }
+footer.legal-footer { display: flex; justify-content: center; flex-wrap: wrap; gap: 24px; background: transparent; padding: 32px 24px; }
+.contact-disclosure { font-size: 14px; line-height: 1.7; }
+.contact-disclosure a, .quote-disclosure a { text-decoration: underline; text-underline-offset: 3px; }
+.service-card > p.quote-disclosure { font-size: 14px; line-height: 1.6; margin: 0 0 18px; }
+@media (max-width: 600px) { .legal-document { padding: 24px; margin: 0 12px; } }
+

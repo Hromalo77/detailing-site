@@ -17,23 +17,9 @@ function mergeSiteContent(value: unknown): SiteContent {
   };
 }
 
-async function ensureSiteContentTable() {
-  const db = getDb();
-
-  await db.execute(sql`
-    create table if not exists site_content (
-      key text primary key,
-      value jsonb not null,
-      updated_at timestamptz not null default now()
-    )
-  `);
-
-  return db;
-}
-
 export async function getSiteContent(): Promise<SiteContent> {
   return retryDatabaseRead(async () => {
-    const db = await ensureSiteContentTable();
+    const db = getDb();
     const [row] = await db
       .select({ value: siteContent.value })
       .from(siteContent)
@@ -45,7 +31,7 @@ export async function getSiteContent(): Promise<SiteContent> {
 }
 
 export async function saveSiteContent(value: SiteContent) {
-  const db = await ensureSiteContentTable();
+  const db = getDb();
 
   await db
     .insert(siteContent)
