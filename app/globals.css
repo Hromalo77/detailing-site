@@ -350,7 +350,7 @@ body > main > footer > small {
         grid-template-columns:1fr
     }
 
-    .hero-actions .button {
+        .hero-actions .button {
         width: 100%
     }
 }
@@ -526,12 +526,20 @@ h1 em, h2 em {
 
 .hero-actions {
     display: flex;
+    visibility: visible;
+    opacity: 1;
     gap: 12px;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 20;
+    margin-top: 8px;
 }
 
 .button {
     display: inline-flex;
+    visibility: visible;
+    position: relative;
+    z-index: 1;
     align-items: center;
     justify-content: center;
     padding: 17px 23px;
@@ -1309,6 +1317,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .hero-lede { font-size: 18px; line-height: 1.65; }
 .button, .nav-call, .contact button { min-height: 50px; }
 .button.primary, .nav-call, .contact button { background: var(--navy); }
+.button.primary { color: #fff; }
+.hero-actions .button.primary {
+    background: var(--brand-light);
+    border: 1px solid var(--brand-light);
+    color: var(--deep);
+}
+.hero-actions .button.secondary {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: #fff;
+}
 .service-card { box-shadow: 0 8px 24px #082c3508; }
 .service-card.popular { border-color: var(--aqua-dark); box-shadow: 0 16px 38px #082c3512; }
 .contact input, .contact textarea { min-height: 48px; font-size: 16px; }
