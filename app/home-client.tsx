@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { FormEvent, ReactNode, useRef, useState } from "react";
 import type { SiteContent } from "./site-content";
 import ServiceCard from "./service-card";
@@ -179,7 +181,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           {content.reviews.map((review) => (
             <blockquote key={`${review.name}-${review.location}`}>
               <div>★★★★★</div>
-              <p>"{review.quote}"</p>
+              <p>&quot;{review.quote}&quot;</p>
               <footer>
                 <b>{review.name}</b>
                 <span>{review.location}</span>
@@ -210,6 +212,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
         <div className="gallery-placeholders">
           {content.gallery.items.map((item) => (
             <div key={item.number}>
+              {item.imageUrl ? <Image src={item.imageUrl} alt={item.imageAlt || item.title} fill unoptimized sizes="(max-width: 768px) 100vw, 40vw" className="gallery-photo" /> : null}
               <span>{item.number}</span>
               <b>{item.title}</b>
               <small>{item.label}</small>

@@ -535,6 +535,15 @@ h1 em, h2 em {
     margin-top: 8px;
 }
 
+.gallery-placeholders div { overflow: hidden; isolation: isolate; }
+.gallery-placeholders .gallery-photo { object-fit: cover; z-index: -2; }
+.gallery-placeholders div:has(.gallery-photo)::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(transparent 35%, rgba(0, 0, 0, .8));
+}
+.admin-editor-fields { border: 0; margin: 0; min-width: 0; }
+.admin-image-preview { max-width: 100%; height: 240px; object-fit: contain; }
+
 .button {
     display: inline-flex;
     visibility: visible;

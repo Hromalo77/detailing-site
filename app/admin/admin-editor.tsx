@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { Faq, GalleryItem, Review, Service, SiteContent, Step } from "../site-content";
 import { validateServiceAddOns } from "../site-content";
+import ImageUpload, { UploadContext } from "./image-upload";
 
 type Status = "idle" | "saving" | "saved" | "error";
 
@@ -15,6 +16,7 @@ export default function AdminEditor({
   const [content, setContent] = useState(initialContent);
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const jsonPreview = useMemo(
     () => JSON.stringify(content, null, 2),
@@ -74,7 +76,8 @@ export default function AdminEditor({
         <a href="#footer">Footer</a>
       </aside>
 
-      <div className="admin-content">
+      <UploadContext.Provider value={setUploading}>
+      <fieldset className="admin-content admin-editor-fields" disabled={uploading || status === "saving"}>
         <Section id="business" title="Business">
           <Field
             label="Brand mark"
@@ -448,11 +451,12 @@ export default function AdminEditor({
             <pre>{jsonPreview}</pre>
           </details>
         </Section>
-      </div>
+      </fieldset>
+      </UploadContext.Provider>
 
       <div className="admin-savebar">
         <span role="status" className={`admin-status ${status}`}>{message || "Ready"}</span>
-        <button type="button" onClick={save} disabled={status === "saving"}>
+        <button type="button" onClick={save} disabled={uploading || status === "saving"}>
           {status === "saving" ? "Saving..." : "Save changes"}
         </button>
       </div>
@@ -699,6 +703,8 @@ function GalleryList({
           <Field label="Number" value={item.number} onChange={(number) => update({ ...item, number })} />
           <Field label="Title" value={item.title} onChange={(title) => update({ ...item, title })} />
           <Field label="Label" value={item.label} onChange={(label) => update({ ...item, label })} />
+          <ImageUpload value={item.imageUrl} onChange={(imageUrl) => update({ ...item, imageUrl })} />
+          <Field label="Image description (alt text)" value={item.imageAlt ?? ""} onChange={(imageAlt) => update({ ...item, imageAlt })} />
         </>
       )}
     />

@@ -43,6 +43,8 @@ export type Review = {
 };
 
 export type GalleryItem = {
+  imageUrl?: string;
+  imageAlt?: string;
   number: string;
   title: string;
   label: string;

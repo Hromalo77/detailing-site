@@ -1,5 +1,19 @@
 # vinext-starter
 
+## Gallery image uploads
+
+Set `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`
+in `.env` locally and in your production server environment. Restart the app
+after changing environment variables. Never prefix the secret with `NEXT_PUBLIC_`.
+
+In `/admin`, open Gallery and choose an image for an entry. Uploads go directly
+to Cloudinary using an authenticated, server-generated signature; no unsigned
+upload preset is required. JPG, PNG, WebP, GIF, and AVIF are supported, with a
+10 MB limit in the editor. Add descriptive alt text, then select **Save changes**
+to publish. Existing entries without images retain their placeholder layout.
+Removing or replacing an image only changes the page; the original asset remains
+in the Cloudinary media library under `cape-cod-mobile-detailing`.
+
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with Neon Postgres and Drizzle
 support.
