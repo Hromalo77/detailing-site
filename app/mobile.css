@@ -250,8 +250,8 @@
         background: #fff;
         padding: 7px;
         border-radius: 12px;
-        box-shadow: 0 8px 35px #061f2766;
-        border: 1px solid #dbe3e0
+        box-shadow: 0 8px 35px #080a0d66;
+        border: 1px solid #d5d9df
     }
 
     .mobile-actions a {
@@ -264,13 +264,13 @@
     }
 
     .mobile-actions a:first-child {
-        background: #082c35;
+        background: #15191f;
         color: #fff
     }
 
     .mobile-actions a:last-child {
-        background: #46d9ca;
-        color: #061f27
+        background: #55b6e7;
+        color: #080a0d
     }
 
     .mobile-actions b {
