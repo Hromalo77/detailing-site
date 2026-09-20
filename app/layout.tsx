@@ -3,6 +3,12 @@ import "./globals.css";
 import "./mobile.css";
 
 export const metadata: Metadata = {
+    icons: {
+        icon: [
+            { url: "/cape-shine-logo-simplified.png", type: "image/png" },
+        ],
+        apple: [{ url: "/cape-shine-logo-simplified.png", type: "image/png" }],
+    },
     title: "Cape Shine Mobile Detailing | Cape Cod, MA",
     description: "Expert mobile car detailing services in Cape Cod, MA. We bring premium auto detailing, interior cleaning, and exterior protection directly to your home or office across Cape Cod and Southeastern Massachusetts. Book your appointment today."
 };

@@ -360,7 +360,16 @@ function Brand({
 }) {
   return (
     <a className={`brand ${footer ? "footer-brand" : ""}`} href="#home">
-      <span className="brand-mark">{content.brand.mark}</span>
+      <Image
+        className="brand-logo"
+        src="/cape-shine-logo-simplified.png"
+        unoptimized
+        alt="Cape Shine Mobile Detailing logo"
+        width={64}
+        height={64}
+        sizes="(max-width: 980px) 52px, 64px"
+        priority={!footer}
+      />
       <span>
         {content.brand.name} <b>{content.brand.highlight}</b>
         <small>{content.brand.subline}</small>

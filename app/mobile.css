@@ -1,3 +1,14 @@
+.brand > .brand-logo {
+    display: block;
+    width: 64px;
+    height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+    flex: 0 0 auto;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
 .mobile-actions {
     display: none
 }
@@ -26,9 +37,9 @@
         letter-spacing: 1.5px
     }
 
-    .site-header .brand-mark {
-        width: 36px;
-        height: 36px
+    .site-header .brand-logo {
+        width: 52px;
+        height: 52px
     }
 
     .site-header .nav-call {
