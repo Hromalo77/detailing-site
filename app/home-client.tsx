@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { bookingLabel, normalizeBookingLabel } from "./booking-label";
 
 import { FormEvent, ReactNode, useRef, useState } from "react";
 import type { SiteContent } from "./site-content";
@@ -62,7 +63,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           ))}
         </nav>
         <a className="nav-call" href={phoneHref} aria-label={`Call Cape Shine at ${content.contact.phoneDisplay}`}>
-          Call now <span aria-hidden="true">-&gt;</span>
+          Call now
         </a>
       </header>
 
@@ -83,7 +84,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
               {content.hero.primaryCta}
             </a>
             <a className="button secondary" href="#contact">
-              {content.hero.secondaryCta} <span aria-hidden="true">-&gt;</span>
+              {normalizeBookingLabel(content.hero.secondaryCta)}
             </a>
           </div>
           <div className="trust-row">
@@ -150,7 +151,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           </h2>
           <p>{content.process.text}</p>
           <a className="button pale" href="#contact">
-            {content.process.cta}
+            {normalizeBookingLabel(content.process.cta)}
           </a>
         </div>
         <div className="steps">
@@ -246,7 +247,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           </h2>
           <p>{content.faq.text}</p>
           <a href={phoneHref}>
-            {content.faq.cta} -&gt;
+            {content.faq.cta}
           </a>
         </div>
         <div className="faq-list">
@@ -276,7 +277,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           <p>{content.contactSection.text}</p>
           <a href={phoneHref}>
             {content.contactSection.phoneCta}{" "}
-            <b>{content.contact.phoneDisplay}</b> -&gt;
+            <b>{content.contact.phoneDisplay}</b>
           </a>
         </div>
         <form onSubmit={submit}>
@@ -308,7 +309,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
           </label>
           <p className="contact-disclosure">We’ll use your details to respond to this request. This does not subscribe you to marketing. We usually reply with a few questions and a quote recommendation. Read our <a href="/privacy">privacy notice</a> and <a href="/service-information">service information</a>.</p>
           <button disabled={sending || sent}>
-            {sending ? "Sending…" : sent ? "Request submitted" : content.contactSection.submitLabel} <span>-&gt;</span>
+            {sending ? "Sending…" : sent ? "Request submitted" : normalizeBookingLabel(content.contactSection.submitLabel)}
           </button>
           {sent && <p className="form-note" role="status">Your request was submitted. We’ll be in touch soon.</p>}
           {sendError && <p className="form-note" role="alert">{sendError} <a href={phoneHref}>Call {content.contact.phoneDisplay}</a></p>}
@@ -330,13 +331,17 @@ export default function HomeClient({ content }: { content: SiteContent }) {
       </footer>
 
       <div className="mobile-actions" aria-label="Quick actions">
-        <a href={phoneHref}>
-          <b>Call now</b>
-          <small>{content.contact.phoneDisplay}</small>
+        <a className="mobile-call" href={phoneHref} aria-label={`Call Cape Shine at ${content.contact.phoneDisplay}`}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1Z" />
+          </svg>
         </a>
-        <a href="#contact">
-          <b>Request detail</b>
-          <small>Get a quote -&gt;</small>
+        <a className="mobile-request" href="#contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="3" />
+            <path d="m4 7 8 6 8-6" />
+          </svg>
+          <b>{bookingLabel}</b>
         </a>
       </div>
     </main>

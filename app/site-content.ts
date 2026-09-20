@@ -159,7 +159,7 @@ export const defaultSiteContent: SiteContent = {
     emphasis: "Right in your driveway.",
     lede: "Premium mobile auto detailing across Cape Cod and Southeast Massachusetts. We bring the water, power, tools, and attention to detail so you don't have to go anywhere.",
     primaryCta: "Call 508-273-6150",
-    secondaryCta: "Request a detail",
+    secondaryCta: "Schedule a cleaning",
     trust: ["We come to you", "Fully self-contained", "Cape Cod local"],
     badgeLabel: "SERVICE AREA",
     badgeText: "Cape Cod +\nSoutheast MA",
@@ -206,7 +206,7 @@ export const defaultSiteContent: SiteContent = {
     title: "From request to",
     emphasis: "freshly detailed.",
     text: "Easy to book, easy to plan, and no driving across town. We handle the details from the first call to the final walk-around.",
-    cta: "Start your request",
+    cta: "Schedule a cleaning",
     steps: [
       {
         number: "01",
@@ -329,7 +329,7 @@ export const defaultSiteContent: SiteContent = {
     emphasis: "right here.",
     text: "Tell us a little about your vehicle. We'll get back to recommend a service, confirm pricing, and find the right appointment.",
     phoneCta: "Prefer to talk?",
-    submitLabel: "Send my request",
+    submitLabel: "Schedule a cleaning",
     sentMessage: "Your email app should open with the request ready to send.",
   },
   footer: {

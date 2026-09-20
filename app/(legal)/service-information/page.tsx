@@ -3,7 +3,7 @@ export const metadata: Metadata = { title: "Service information | Cape Cod Mobil
 
 export default function ServiceInformation() {
   return <>
-    <p className="legal-eyebrow">Before you request a detail</p>
+    <p className="legal-eyebrow">Before you schedule a cleaning</p>
     <h1>Quotes &amp; service information</h1>
     <p className="legal-date">Last updated September 11, 2026</p>
     <h2>Requests and bookings</h2>

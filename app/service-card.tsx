@@ -51,7 +51,7 @@ export default function ServiceCard({ service, index, onRequest, selected, onSel
         {base === null && selected.length > 0 && <p>Plus {formatPrice(extras)} in selected add-ons</p>}
       </div>
       <p className="quote-disclosure">Starting estimate. Final quote depends on your vehicle and service needs. <a href="/service-information">Pricing details</a></p>
-      <a href="#contact" onClick={() => onRequest(summary)}>Request this service <span>-&gt;</span></a>
+      <a className="service-request-button" href="#contact" onClick={() => onRequest(summary)}>Schedule a cleaning</a>
     </article>
   );
 }
