@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FormEvent, ReactNode, useRef, useState } from "react";
 import type { SiteContent } from "./site-content";
 import ServiceCard from "./service-card";
+import GalleryLightbox from "./gallery-lightbox";
 import { serviceSummary } from "./contact-request";
 
 const sectionIds: Record<string, string> = {
@@ -209,16 +210,7 @@ export default function HomeClient({ content }: { content: SiteContent }) {
             ))}
           </div>
         </div>
-        <div className="gallery-placeholders">
-          {content.gallery.items.map((item) => (
-            <div key={item.number}>
-              {item.imageUrl ? <Image src={item.imageUrl} alt={item.imageAlt || item.title} fill unoptimized sizes="(max-width: 768px) 100vw, 40vw" className="gallery-photo" /> : null}
-              <span>{item.number}</span>
-              <b>{item.title}</b>
-              <small>{item.label}</small>
-            </div>
-          ))}
-        </div>
+        <GalleryLightbox items={content.gallery.items} />
       </section>
 
       <section className="section coverage">

@@ -1,0 +1,70 @@
+.gallery-open {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+    color: white;
+}
+.gallery-open > span {
+    top: 12px;
+    right: 12px;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #080a0dcc;
+    color: #79c9f1;
+    font-size: 24px;
+}
+.gallery-open:hover { background: #55b6e712; }
+.gallery-open:focus-visible { outline: 3px solid #79c9f1; outline-offset: -4px; }
+.gallery-lightbox {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 16px;
+    border: 0;
+    background: transparent;
+    color: #f1f3f6;
+}
+.gallery-lightbox[open] { display: grid; place-items: center; }
+.gallery-lightbox::backdrop { background: #000e; }
+.gallery-lightbox-panel {
+    position: relative;
+    width: min(1200px, 100%);
+    height: min(900px, calc(100dvh - 32px));
+    display: flex;
+    flex-direction: column;
+    padding: 56px 12px 0;
+    background: #101216;
+    border: 1px solid #424a55;
+    border-radius: 12px;
+}
+.gallery-full-image { position: relative; flex: 1; min-height: 0; }
+.gallery-full-image img { object-fit: contain; }
+.gallery-lightbox button {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: 1px solid #596574;
+    border-radius: 50%;
+    background: #232b36;
+    color: #f1f3f6;
+    font-size: 26px;
+    cursor: pointer;
+}
+.gallery-lightbox button:hover { background: #55b6e7; color: #080a0d; }
+.gallery-lightbox button:focus-visible { outline: 3px solid #79c9f1; }
+.gallery-lightbox button:disabled { opacity: .35; cursor: default; }
+.gallery-close { position: absolute; top: 8px; right: 12px; }
+.gallery-lightbox-controls { display: flex; align-items: center; gap: 16px; padding: 12px 0; }
+.gallery-lightbox-controls p { flex: 1; min-width: 0; margin: 0; text-align: center; overflow-wrap: anywhere; }
+.gallery-lightbox-controls strong { display: block; font-size: 14px; }
+.gallery-lightbox-controls p span { display: block; color: #bac1ca; font-size: 12px; }
