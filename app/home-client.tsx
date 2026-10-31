@@ -95,21 +95,26 @@ export default function HomeClient({ content }: { content: SiteContent }) {
             ))}
           </div>
         </div>
-        <div className="hero-art">
-          <div className="sun" />
-          <div className="car-line">
-            <i />
-            <i />
-          </div>
-          <div className="water-line one" />
-          <div className="water-line two" />
-          <div className="service-badge">
-            <span>●</span>
-            <div>
-              <small>{content.hero.badgeLabel}</small>
-              <b>{content.hero.badgeText}</b>
-            </div>
-          </div>
+        <div className="hero-art experience-art">
+          <section className="experience-card" aria-label="The Cape Shine experience">
+            <div className="experience-heading"><span>The Cape Shine experience</span></div>
+            <ol className="experience-journey">
+              {[
+                { title: "You book.", text: "Request your detail.", icon: "calendar" },
+                { title: "We arrive.", text: "We bring water, power & equipment.", icon: "car" },
+                { title: "You enjoy.", text: "A fresh car, without the trip.", icon: "sparkle" },
+              ].map((step, index) => (
+                <li key={step.title}>
+                  <span className="experience-number">0{index + 1}</span>
+                  <svg className="experience-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {step.icon === "calendar" ? <><rect x="8" y="10" width="32" height="31" rx="3" /><path d="M8 19h32M16 6v9M32 6v9M17 29l5 5 10-11" /></> : step.icon === "car" ? <><path d="M9 30v-9l5-10h19l6 10 4 3v9h-6M17 33h12M9 33H5v-9h4M10 21h28M1 16h6M1 21h4" /><circle cx="13" cy="33" r="4" /><circle cx="33" cy="33" r="4" /></> : <><path d="M25 5l5 14 13 5-13 5-5 14-5-14-13-5 13-5zM8 4l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" /></>}
+                  </svg>
+                  <div><h2>{step.title}</h2><p>{step.text}</p></div>
+                </li>
+              ))}
+            </ol>
+            <div className="experience-area"><span className="experience-area-arrow" aria-hidden="true">↗</span><div><span>{content.hero.badgeLabel}</span><p>{content.hero.badgeText}</p></div></div>
+          </section>
         </div>
       </section>
 
